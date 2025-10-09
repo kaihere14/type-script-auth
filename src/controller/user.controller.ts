@@ -79,8 +79,6 @@ export const registerUser = async (req: Request, res: Response) => {
 };
 
 
-
-
 export const loginUser = async(req:Request,res:Response)=>{
     const {username,password} = req.body as LoginRequestBody
 
@@ -122,7 +120,7 @@ export const logoutUser = async (req:UserRequest,res:Response):Promise<Response>
             return res.status(404).json({status:409,Message:"user not found"})
         }
         user.refreshToken = "",
-        user.save({validateBeforeSave:false})
+        await user.save({validateBeforeSave:false})
         return res.status(200).json({status:200,message :"Logged out successfully"})
         
     } catch (error) {
